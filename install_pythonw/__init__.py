@@ -90,7 +90,11 @@ def main(argv):
         print python_app_src, 'does not exist; exiting.'
         return 1
     # Copy Python.app to env_path
-    shutil.copytree(python_app_src, python_app_dest)
+    # Throws permission-related exception but actually works, so ignore
+    try:
+        shutil.copytree(python_app_src, python_app_dest)
+    except:
+        pass
     # Change install names in Python.app binary.
     pythonw_executable = path.join(
         python_app_dest, 'Contents', 'MacOS', 'Python')
